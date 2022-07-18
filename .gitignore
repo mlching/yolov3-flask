@@ -1,0 +1,8 @@
+# Ignore Mac system files
+.DS_store
+
+# Ignore YOLOv3 weights
+weights/checkpoint
+weights/yolov3_weights.tf.data-00000-of-00001
+weights/yolov3_weights.tf.index
+weights/yolov3.weights

@@ -1,0 +1,5 @@
+steps:
+- name: 'gcp.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcp.io/seekr-62d4d/flask_app', '.']
+- name: 'gcp.io/cloud-builders/docker'
+  args: ['push', 'gcp.io/seekr-62d4d/flask_app']

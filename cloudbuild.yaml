@@ -1,5 +1,5 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcp.io/seekr-62d4d/yolov3-flask', '.']
+  args: ['build', '-t', 'gcr.io/seekr-62d4d/yolov3-flask', '.']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcp.io/seekr-62d4d/yolov3-flask']
+  args: ['push', 'gcr.io/seekr-62d4d/yolov3-flask']

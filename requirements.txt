@@ -4,3 +4,4 @@ numpy
 tensorflow
 opencv-python
 uvicorn>=0.15.0,<0.16.0
+gunicorn

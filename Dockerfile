@@ -9,8 +9,8 @@ RUN apt-get update
 RUN apt-get install ffmpeg libsm6 libxext6  -y
 RUN pip3 install -r requirements.txt
 
-COPY ./app app 
+COPY ./app app
 
-EXPOSE 80 
+EXPOSE 5000
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["gunicorn", "main:app"]

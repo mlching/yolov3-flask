@@ -8,13 +8,13 @@ import json
 
 model_size = (416, 416,3)
 num_classes = 80
-class_name = '../data/coco.names'
+class_name = 'data/coco.names'
 max_output_size = 40
 max_output_size_per_class= 20
 iou_threshold = 0.5
 confidence_threshold = 0.5
-cfgfile = '../cfg/yolov3.cfg'
-weightfile = '../weights/yolov3_weights.tf'
+cfgfile = 'cfg/yolov3.cfg'
+weightfile = 'weights/yolov3_weights.tf'
 
 # Average height and width of object classes
 obj_height_width = {'person' : [1.7, 0.367],

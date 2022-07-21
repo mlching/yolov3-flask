@@ -7,7 +7,7 @@ from flask import request
 app = Flask(__name__)
 cors = CORS(app)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/image', methods=['GET', 'POST'])
 def giveDirection():
     filter_data = request.get_json()
     print(filter_data)
@@ -15,9 +15,9 @@ def giveDirection():
     direction = image.navigation(img_path)
     return direction
 
-@app.route('/image', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def giveDirection2():
-    img_path = '../data/test.jpeg'
+    img_path = 'data/test.jpeg'
     direction = image.navigation(img_path)
     return direction
 

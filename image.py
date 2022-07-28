@@ -100,15 +100,15 @@ obj_height_width = {'person' : [1.7, 0.367],
                     }
 
 
-def navigation(img_path):
-    model = YOLOv3Net(cfgfile,model_size,num_classes)
-    model.load_weights(weightfile)
-    class_names = load_class_names(class_name)
-    image = cv2.imread(img_path)
+def navigation(image):
     height, width, channels = image.shape
+    print(height, width, channels)
     image = np.array(image)
     image = tf.expand_dims(image, 0)
     resized_frame = resize_image(image, (model_size[0],model_size[1]))
+    model = YOLOv3Net(cfgfile,model_size,num_classes)
+    model.load_weights(weightfile)
+    class_names = load_class_names(class_name)
     pred = model.predict(resized_frame)
     boxes, scores, classes, nums = output_boxes( \
         pred, model_size,

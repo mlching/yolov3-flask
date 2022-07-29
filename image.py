@@ -116,12 +116,5 @@ def navigation(image):
         max_output_size_per_class=max_output_size_per_class,
         iou_threshold=iou_threshold,
         confidence_threshold=confidence_threshold)
-    # image = np.squeeze(image)
     directions = give_direction(boxes, scores, classes, nums, class_names, obj_height_width, width)
-    # win_name = 'Image detection'
-    # cv2.imshow(win_name, img)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    #If you want to save the result, uncommnent the line below:
-    #cv2.imwrite('test.jpg', img)
     return json.dumps(directions)

@@ -69,9 +69,14 @@ def give_direction(boxes, objectness, classes, nums, class_names, obj_height_wid
         category = class_names[int(classes[i])]
         if  category in obj_height_width.keys():
             dist = {'object': None, 'distance': None, 'location': None}
-            x, y, w, h = boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3]
-            location = object_location(width, x)
-            first_distance = distance_one(3.543, obj_height_width[category][0], h)
+
+            x1, y1, x2, y2 = boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3]
+            width = abs(int(x2 - x1))
+            height = abs(int(y1 - y2))
+            center = [int(x1+ width), int(y2 + height)]
+
+            location = object_location(center[0], x)
+            first_distance = distance_one(3.543, obj_height_width[category][0], height)
 
             dist['object'] = category
             dist['distance'] = first_distance

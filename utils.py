@@ -77,7 +77,6 @@ def give_direction(img, boxes, objectness, classes, nums, class_names, obj_heigh
             width_obj = abs(x2y2[0] - x1y1[0])
             center_x = x1y1[0]+ width_obj/2
             center_y = x2y2[0] + height_obj/2
-            print(height_obj, width_obj, center_x, center_y)
 
             location = object_location(width_obj, center_x)
             first_distance = distance_one(3.543, obj_height_width[category][0], height_obj)

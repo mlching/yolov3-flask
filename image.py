@@ -102,7 +102,6 @@ obj_height_width = {'person' : [1.7, 0.367],
 
 def navigation(image):
     height, width, channels = image.shape
-    print(height, width, channels)
     image = np.array(image)
     image = tf.expand_dims(image, 0)
     resized_frame = resize_image(image, (model_size[0],model_size[1]))

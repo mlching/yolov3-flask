@@ -14,7 +14,7 @@ max_output_size_per_class= 20
 iou_threshold = 0.5
 confidence_threshold = 0.5
 cfgfile = 'cfg/yolov3.cfg'
-weightfile = 'weights/yolov3_weights.tf'
+weightfile = 'yolov3_weights.tf'
 
 # Average height and width of object classes
 obj_height_width = {'person' : [1.7, 0.367],

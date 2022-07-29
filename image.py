@@ -116,5 +116,6 @@ def navigation(image):
         max_output_size_per_class=max_output_size_per_class,
         iou_threshold=iou_threshold,
         confidence_threshold=confidence_threshold)
-    directions = give_direction(boxes, scores, classes, nums, class_names, obj_height_width, width)
+    image = np.squeeze(image)
+    directions = give_direction(image, boxes, scores, classes, nums, class_names, obj_height_width)
     return json.dumps(directions)

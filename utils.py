@@ -61,22 +61,26 @@ def output_boxes(inputs,model_size, max_output_size, max_output_size_per_class,
                                       max_output_size_per_class, iou_threshold, confidence_threshold)
     return boxes_dicts
 
-def give_direction(boxes, objectness, classes, nums, class_names, obj_height_width, width):
+def give_direction(img, boxes, objectness, classes, nums, class_names, obj_height_width):
     boxes, objectness, classes, nums = boxes[0], objectness[0], classes[0], nums[0]
-    boxes=np.array(boxes)
+    boxes = np.array(boxes)
     lists= []
     for i in range(nums):
         category = class_names[int(classes[i])]
         if  category in obj_height_width.keys():
             dist = {'object': None, 'distance': None, 'location': None}
 
-            x1, y1, x2, y2 = boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3]
-            width = abs(int(x2 - x1))
-            height = abs(int(y1 - y2))
-            center = [int(x1+ width), int(y2 + height)]
+            x1y1 = tuple((boxes[i,0:2] * [img.shape[1],img.shape[0]]).astype(np.int32))
+            x2y2 = tuple((boxes[i,2:4] * [img.shape[1],img.shape[0]]).astype(np.int32))
 
-            location = object_location(center[0], x)
-            first_distance = distance_one(3.543, obj_height_width[category][0], height)
+            height_obj = abs(x1y1[1] - x2y2[1])
+            width_obj = abs(x2y2[0] - x1y1[0])
+            center_x = x1y1[0]+ width_obj/2
+            center_y = x2y2[0] + height_obj/2
+            print(height_obj, width_obj, center_x, center_y)
+
+            location = object_location(width_obj, center_x)
+            first_distance = distance_one(3.543, obj_height_width[category][0], height_obj)
 
             dist['object'] = category
             dist['distance'] = first_distance

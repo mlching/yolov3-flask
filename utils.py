@@ -12,9 +12,9 @@ def distance_one(focal_length, Orig_height, Img_height):
 def object_location(img_width, x_center):
     image_center = img_width/2
     location = None
-    if x_center > image_center + 200 :
+    if x_center >= (img_width - (img_width/100)* 20):
         location = 'right'
-    elif x_center < image_center - 200 :
+    elif x_center <= (img_width/100)* 20:
         location = 'left'
     else:
         location = 'straight'
@@ -77,8 +77,8 @@ def give_direction(img, boxes, objectness, classes, nums, class_names, obj_heigh
             width_obj = abs(x2y2[0] - x1y1[0])
             center_x = x1y1[0]+ width_obj/2
             center_y = x2y2[0] + height_obj/2
-
-            location = object_location(width_obj, center_x)
+            
+            location = object_location(img.shape[1], center_x)
             first_distance = distance_one(3.543, obj_height_width[category][0], height_obj)
 
             dist['object'] = category

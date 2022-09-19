@@ -105,5 +105,4 @@ def YOLOv3Net(cfgfile, model_size, num_classes):
         outputs[i] = inputs
         output_filters.append(filters)
     model = Model(input_image, out_pred)
-    model.summary()
     return model

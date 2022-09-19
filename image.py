@@ -1,12 +1,14 @@
-# image.py
+#image.py
 import tensorflow as tf
 from utils import load_class_names, output_boxes, give_direction, resize_image
 import cv2
 import numpy as np
 from yolov3 import YOLOv3Net
 import json
+from datetime import datetime
 
-model_size = (416, 416,3)
+
+model_size = (416, 416, 3)
 num_classes = 80
 class_name = 'data/coco.names'
 max_output_size = 40
@@ -99,22 +101,51 @@ obj_height_width = {'person' : [1.7, 0.367],
                     'toothbrush' : [0.166, 0.0063]
                     }
 
+def load_model_weights(loading_time):
+    # Loading model
+    model = YOLOv3Net(cfgfile, model_size, num_classes)
+    model_loading_time = datetime.now()
+    print('Model loading time: ', model_loading_time - loading_time)
 
-def navigation(image):
+    # load weights
+    model.load_weights(weightfile)
+    weight_loading_time = datetime.now()
+    print('Weight loading time: ', weight_loading_time - model_loading_time)
+
+    # load class 
+    class_names = load_class_names(class_name)
+    class_names_time = datetime.now()
+    print('Class loading time: ', class_names_time - weight_loading_time)
+
+    return model, class_names
+
+
+def navigation(image, start_time, model, class_names):
+    # Image Processing
     height, width, channels = image.shape
     image = np.array(image)
     image = tf.expand_dims(image, 0)
     resized_frame = resize_image(image, (model_size[0],model_size[1]))
-    model = YOLOv3Net(cfgfile,model_size,num_classes)
-    model.load_weights(weightfile)
-    class_names = load_class_names(class_name)
+
+    # Prediction and Bounding box info, etc
     pred = model.predict(resized_frame)
     boxes, scores, classes, nums = output_boxes( \
-        pred, model_size,
+        pred, model_size, 
         max_output_size=max_output_size,
         max_output_size_per_class=max_output_size_per_class,
         iou_threshold=iou_threshold,
         confidence_threshold=confidence_threshold)
+    prediction_time = datetime.now()
+
+    # Getiing the distance and direction 
     image = np.squeeze(image)
     directions = give_direction(image, boxes, scores, classes, nums, class_names, obj_height_width)
+    output_time = datetime.now()
+
+    image_received_time = start_time.strftime("%d/%m/%Y %H:%M:%S")
+    print("Received image at: ", image_received_time)
+    print("Prediction time: ", prediction_time - start_time)
+    print("Output processing time: ", output_time - prediction_time)
+    print("Total time at backend: ", output_time - start_time)
+
     return json.dumps(directions)

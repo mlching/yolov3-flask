@@ -5,7 +5,7 @@
 checkpoint
 yolov3_weights.tf.data-00000-of-00001
 yolov3_weights.tf.index
-
+wget-log
 
 data/
 test.py

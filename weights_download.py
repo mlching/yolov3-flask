@@ -9,10 +9,8 @@ for file in file_list:
     list1.append(os.path.isfile(file))
 
 if all(list1):
-    print('Weight exists. Download and conversion not needed')
+    print('Weight exists. Conversion not needed')
 else:
-    print('Downloading yolov3 weights')
-    os.system('wget https://pjreddie.com/media/files/yolov3.weights')
     print('Converting .weights file to tf file')
     convert_weights.main()
     os.remove('yolov3.weights')

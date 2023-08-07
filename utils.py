@@ -3,6 +3,11 @@ import numpy as np
 import cv2
 import time
 
+movable_objects = ["person", "bicycle", "car", "motorbike", "aeroplane",
+                   "bus", "train", "truck", "boat", "bird", "cat", "elephant",
+                   "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra"
+                   "giraffe"]
+
 # Calculates the diatnce of an object in the image using focal length of camera
 def distance_one(focal_length, Orig_height, Img_height):
     distance = (focal_length * 100 * Orig_height)/Img_height
@@ -12,9 +17,9 @@ def distance_one(focal_length, Orig_height, Img_height):
 def object_location(img_width, x_center):
     image_center = img_width/2
     location = None
-    if x_center >= (img_width - (img_width/100)* 20):
+    if x_center >= (img_width - (img_width/100)* 33):
         location = 'right'
-    elif x_center <= (img_width/100)* 20:
+    elif x_center <= (img_width/100)* 33:
         location = 'left'
     else:
         location = 'straight'
@@ -90,7 +95,7 @@ def give_direction(img, boxes, objectness, classes, nums, class_names, obj_heigh
     for lis in lists:
         if lis['location'] == 'straight':
             mytext = "There is a "+lis['object']+" at "+str(round(lis['distance'], 1))+" meters ahead of you."
-        else:
+        elif lis['object'] in movable_objects:
             mytext = "There is a "+lis['object']+" at "+str(round(lis['distance'], 1))+" meters to your "+lis['location'] + "."
         texts.append(mytext)
     return texts

@@ -42,7 +42,7 @@ def load_weights(model,cfgfile,weightfile):
     fp.close()
 
 def main():
-    weightfile = "yolov3.weights"
+    weightfile = "./weights/yolov3.weights"
     cfgfile = "cfg/yolov3.cfg"
     model_size = (416, 416, 3)
     num_classes = 80
@@ -53,5 +53,5 @@ def main():
         print('\nThe file \'yolov3_weights.tf\' has been saved successfully.')
     except IOError:
         print("Couldn't write the file \'yolov3_weights.tf\'.")
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()

@@ -94,7 +94,11 @@ def give_direction(img, boxes, objectness, classes, nums, class_names, obj_heigh
     texts = []
     for lis in lists:
         if lis['location'] == 'straight':
-            mytext = "There is a "+lis['object']+" at "+str(round(lis['distance'], 1))+" meters ahead of you."
+            if lis['object'] in movable_objects:
+                if lis['distance'] <= 5:
+                    mytext = "There is a "+lis['object']+" at "+str(round(lis['distance'], 1))+" meters ahead of you."
+            elif lis['distance'] <= 3:
+                mytext = "There is a "+lis['object']+" at "+str(round(lis['distance'], 1))+" meters ahead of you."        
         elif lis['object'] in movable_objects:
             mytext = "There is a "+lis['object']+" at "+str(round(lis['distance'], 1))+" meters to your "+lis['location'] + "."
         texts.append(mytext)

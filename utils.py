@@ -69,11 +69,11 @@ def output_boxes(inputs,model_size, max_output_size, max_output_size_per_class,
 def give_direction(img, boxes, objectness, classes, nums, class_names, obj_height_width):
     boxes, objectness, classes, nums = boxes[0], objectness[0], classes[0], nums[0]
     boxes = np.array(boxes)
-    lists= []
+    lists = []
     for i in range(nums):
         category = class_names[int(classes[i])]
         if  category in obj_height_width.keys():
-            dist = {'object': None, 'distance': None, 'location': None}
+            dist = {'object': None, 'distance': None, 'location': None, 'bbox': None, 'movable': False}
 
             x1y1 = tuple((boxes[i,0:2] * [img.shape[1],img.shape[0]]).astype(np.int32))
             x2y2 = tuple((boxes[i,2:4] * [img.shape[1],img.shape[0]]).astype(np.int32))
@@ -89,7 +89,9 @@ def give_direction(img, boxes, objectness, classes, nums, class_names, obj_heigh
             dist['object'] = category
             dist['distance'] = first_distance
             dist['location'] = location
-
+            dist['bbox'] = np.array([x1y1, x2y2]).tolist()
+            if category in movable_objects:
+                dist['movable'] = True
             lists.append(dist)
     texts = []
     for lis in lists:
@@ -102,4 +104,4 @@ def give_direction(img, boxes, objectness, classes, nums, class_names, obj_heigh
         elif lis['object'] in movable_objects:
             mytext = "There is a "+lis['object']+" at "+str(round(lis['distance'], 1))+" meters to your "+lis['location'] + "."
         texts.append(mytext)
-    return texts
+    return texts, lists

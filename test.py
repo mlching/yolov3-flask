@@ -44,8 +44,8 @@ while True:
         resp = requests.post("http://127.0.0.1:5000/", files={'file': open(image_filename, 'rb')})
         lists = resp.json()["lists"]
     height, width, _ = frame.shape
-    line1_pos = int(width * 33 / 100)
-    line2_pos = int(width * 67 / 100)
+    line1_pos = int(width * 20 / 100)
+    line2_pos = int(width * 80 / 100)
 
     # Draw lines on the frame
     green = (0, 255, 0)

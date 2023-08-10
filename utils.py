@@ -17,9 +17,9 @@ def distance_one(focal_length, Orig_height, Img_height):
 def object_location(img_width, x_center):
     image_center = img_width/2
     location = None
-    if x_center >= (img_width - (img_width/100)* 33):
+    if x_center >= (img_width - (img_width/100)* 20):
         location = 'right'
-    elif x_center <= (img_width/100)* 33:
+    elif x_center <= (img_width/100)* 20:
         location = 'left'
     else:
         location = 'straight'

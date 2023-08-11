@@ -4,9 +4,11 @@ import cv2
 import time
 import mod
 
-model = YOLO("./weights/yolov8s.pt")
+model = YOLO("./weights/yolov8n.pt")
 vid = cv2.VideoCapture(0)
 start_time = time.time()
+frame_count = 0
+starting_time = time.time()
 
 while True:
     return_value, frame = vid.read()
@@ -19,13 +21,14 @@ while True:
 
     image_filename = './data/captured_frame.jpg'
     cv2.imwrite(image_filename, frame)
+    frame_count += 1
 
     if time.time() - start_time >= 2:
         # test from GCR
         request_time = datetime.now()
         print('Request sent time: ', request_time)
 
-        prediction = model(frame)[0]
+        prediction = model(frame, conf=0.5)[0]
         data = prediction.boxes.data.tolist()
         texts = []
         lists = []
@@ -44,7 +47,7 @@ while True:
         print('RTT: ', receive_time - request_time)
         start_time = time.time()
     else:
-        prediction = model(frame)[0]
+        prediction = model(frame, conf=0.5)[0]
         data = prediction.boxes.data.tolist()
         lists = []
         for i in data:
@@ -78,3 +81,4 @@ while True:
             cv2.putText(frame, f"Object:{lis['object']}, Distance:{lis['distance']}, Location:{lis['location']}", tuple([lis['bbox'][0], lis['bbox'][1]]), 0, 0.5, black, 1)
 
     cv2.imshow("Output Video", frame)
+print("FPS: ", frame_count/(time.time()-starting_time))

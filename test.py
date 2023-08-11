@@ -8,6 +8,8 @@ import time
 video_path = "./data/test.mp4"
 vid = cv2.VideoCapture(0)
 start_time = time.time()
+starting_time = time.time()
+frame_count = 0
 
 while True:
     return_value, frame = vid.read()
@@ -20,6 +22,7 @@ while True:
 
     image_filename = './data/captured_frame.jpg'
     cv2.imwrite(image_filename, frame)
+    frame_count += 1
 
     if time.time() - start_time >= 2:
         # test from GCR
@@ -46,6 +49,7 @@ while True:
     height, width, _ = frame.shape
     line1_pos = int(width * 20 / 100)
     line2_pos = int(width * 80 / 100)
+    print(resp.json()["time"])
 
     # Draw lines on the frame
     green = (0, 255, 0)
@@ -71,7 +75,7 @@ while True:
             cv2.putText(frame, f"Object:{lis['object']}, Distance:{lis['distance']}, Location:{lis['location']}", tuple(lis['bbox'][0]), 0, 0.5, black, 1)
 
     cv2.imshow("Output Video", frame)
-
+print("FPS: ", frame_count/(time.time()-starting_time))
 
 #without bounding boxes
 """""""""

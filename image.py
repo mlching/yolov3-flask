@@ -7,6 +7,7 @@ from yolov3 import YOLOv3Net
 import json
 from datetime import datetime
 import numpy
+import time
 
 model_size = (416, 416, 3)
 num_classes = 80
@@ -128,7 +129,9 @@ def navigation(image, start_time, model, class_names):
     resized_frame = resize_image(image, (model_size[0],model_size[1]))
 
     # Prediction and Bounding box info, etc
+    start = time.time()
     pred = model.predict(resized_frame)
+    end = time.time() - start
     boxes, scores, classes, nums = output_boxes( \
         pred, model_size, 
         max_output_size=max_output_size,
@@ -148,4 +151,4 @@ def navigation(image, start_time, model, class_names):
     print("Output processing time: ", output_time - prediction_time)
     print("Total time at backend: ", output_time - start_time)
 
-    return json.dumps({"directions": directions, "lists": lists})
+    return json.dumps({"directions": directions, "lists": lists, "time": end})

@@ -6,8 +6,8 @@ import csv
 import time
 
 # Load YOLO model
-model_name = "yolov8x.pt"
-model = YOLO(f"./weights/{model_name}")
+model_name = "yolov8x"
+model = YOLO(f"./weights/{model_name}.pt")
 
 # Define input and output folders
 input = "testing2"
@@ -38,7 +38,7 @@ output_csv = f'./data/{model_name}_{input}_results.csv'  # Change this to the de
 # Initialize CSV writer
 csv_file = open(output_csv, 'w', newline='')
 csv_writer = csv.writer(csv_file)
-csv_writer.writerow(['Image', 'Object', 'Distance', 'Location', 'Time'])
+csv_writer.writerow(['Image', 'Object', 'Distance', 'Location', 'Time', 'Confidence'])
 
 # Process images in the input folder
 for image_filename in sorted_image_names:
@@ -47,12 +47,13 @@ for image_filename in sorted_image_names:
         frame = cv2.imread(image_path)
 
         start = time.time()
-        prediction = model(frame)[0]
+        prediction = model(frame, conf=0.5)[0]
         end = time.time() - start
         data = prediction.boxes.data.tolist()
         lists = []
         for i in data:
             text, lis = mod.give_direction(i[:4], prediction.names[i[5]], frame)
+            lis["confidence"] = i[4]
             lists.append(lis)
 
         for lis in lists:
@@ -61,14 +62,15 @@ for image_filename in sorted_image_names:
             else:
                 cv2.rectangle(frame, tuple(lis['bbox'][:2]), tuple(lis['bbox'][2:]), (0, 255, 0), 1)
             cv2.putText(frame, f"Object:{lis['object']}, Distance:{lis['distance']}, Location:{lis['location']}",
-                        tuple([lis['bbox'][0], lis['bbox'][1]]), 0, 1, (0, 0, 0), 1)
+                        tuple([lis['bbox'][0], lis['bbox'][1]]), 0, 1, (0, 0, 0), 2)
+            csv_writer.writerow([image_filename, lis['object'], lis['distance'], lis['location'], end, lis['confidence']])
 
             # Save the processed image with bounding boxes in the output folder
-            output_image_path = os.path.join(output_folder, f"processed_{image_filename}")
-            cv2.imwrite(output_image_path, frame)
+        output_image_path = os.path.join(output_folder, f"processed_{image_filename}")
+        cv2.imwrite(output_image_path, frame)
 
-            # Write data to CSV
-            csv_writer.writerow([image_filename, lis['object'], lis['distance'], lis['location'], end])
+        # Write data to CSV
+
 
 # Close the CSV file
 csv_file.close()

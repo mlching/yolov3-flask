@@ -19,8 +19,8 @@ def distance_one(focal_length, Orig_height, Img_height):
 
 def give_direction(boxes, classes, img):
     x1 = round(boxes[0])
-    x2 = round(boxes[1])
-    y1 = round(boxes[2])
+    x2 = round(boxes[2])
+    y1 = round(boxes[1])
     y2 = round(boxes[3])
 
     obj_height_width = {'person' : [1.7, 0.367],
@@ -104,7 +104,7 @@ def give_direction(boxes, classes, img):
                     'hair drier' : [0.28, 0.245],
                     'toothbrush' : [0.166, 0.0063]
                     }
-    movable_objects = ["person", "bicycle", "car", "motorbike", "aeroplane",
+    movable_objects = ["person", "bicycle", "car", "motorcycle", "aeroplane",
                    "bus", "train", "truck", "boat", "bird", "cat", "elephant",
                    "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra"
                    "giraffe"]
@@ -116,7 +116,7 @@ def give_direction(boxes, classes, img):
     location = object_location(img.shape[1], center_x)
     first_distance = distance_one(3.543, obj_height_width[classes][0], height_obj)
 
-    lis = {'object': classes, 'distance': first_distance, 'location': location, 'bbox': [x1, x2, y1, y2], 'movable': False}
+    lis = {'object': classes, 'distance': first_distance, 'location': location, 'bbox': [x1, y1, x2, y2], 'movable': False}
     if classes in movable_objects:
         lis['movable'] = True
     texts = []

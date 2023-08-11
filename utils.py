@@ -73,7 +73,7 @@ def give_direction(img, boxes, objectness, classes, nums, class_names, obj_heigh
     for i in range(nums):
         category = class_names[int(classes[i])]
         if  category in obj_height_width.keys():
-            dist = {'object': None, 'distance': None, 'location': None, 'bbox': None, 'movable': False}
+            dist = {'object': None, 'distance': None, 'location': None, 'bbox': None, 'movable': False, 'confidence': objectness.numpy().tolist()[i]}
 
             x1y1 = tuple((boxes[i,0:2] * [img.shape[1],img.shape[0]]).astype(np.int32))
             x2y2 = tuple((boxes[i,2:4] * [img.shape[1],img.shape[0]]).astype(np.int32))
@@ -99,9 +99,11 @@ def give_direction(img, boxes, objectness, classes, nums, class_names, obj_heigh
             if lis['object'] in movable_objects:
                 if lis['distance'] <= 5:
                     mytext = "There is a "+lis['object']+" at "+str(round(lis['distance'], 1))+" meters ahead of you."
+                    texts.append(mytext)
             elif lis['distance'] <= 3:
-                mytext = "There is a "+lis['object']+" at "+str(round(lis['distance'], 1))+" meters ahead of you."        
+                mytext = "There is a "+lis['object']+" at "+str(round(lis['distance'], 1))+" meters ahead of you."
+                texts.append(mytext)
         elif lis['object'] in movable_objects:
             mytext = "There is a "+lis['object']+" at "+str(round(lis['distance'], 1))+" meters to your "+lis['location'] + "."
-        texts.append(mytext)
+            texts.append(mytext)
     return texts, lists

@@ -4,11 +4,12 @@ import cv2
 import time
 import mod
 
-model = YOLO("./weights/yolov8n.pt")
+model = YOLO("yolov8m.pt")
 vid = cv2.VideoCapture(0)
 start_time = time.time()
 frame_count = 0
 starting_time = time.time()
+confidence = 0.281
 
 while True:
     return_value, frame = vid.read()
@@ -28,7 +29,7 @@ while True:
         request_time = datetime.now()
         print('Request sent time: ', request_time)
 
-        prediction = model(frame, conf=0.5)[0]
+        prediction = model(frame, conf=confidence)[0]
         data = prediction.boxes.data.tolist()
         texts = []
         lists = []
@@ -47,7 +48,7 @@ while True:
         print('RTT: ', receive_time - request_time)
         start_time = time.time()
     else:
-        prediction = model(frame, conf=0.5)[0]
+        prediction = model(frame, conf=confidence)[0]
         data = prediction.boxes.data.tolist()
         lists = []
         for i in data:

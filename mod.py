@@ -10,11 +10,20 @@ def object_location(img_width, x_center):
         location = 'straight'
     return location
 
-def distance_one(focal_length, Orig_height, Img_height):
-    try:
-        distance = (focal_length * 100 * Orig_height)/Img_height
-    except ZeroDivisionError:
-        distance = 0
+def distance_one(focal_length, Orig_height_width, Img_height, Img_width):
+    alpha = Img_height/Orig_height_width[0]
+    beta = (Img_height * Img_width) / (Orig_height_width[0] * Orig_height_width[1])
+    far = False
+    distance = 0
+    if (Img_height < (alpha-alpha/2)) and ((Img_height * Img_width) > (beta+beta/2)):
+        distance = 0.5
+    elif (Img_height < (alpha-alpha/2)) or (Img_height > (alpha+alpha/2)) and ((Img_height * Img_width) > (beta/3)):
+        distance = (focal_length * 100 * Orig_height_width[0])/Img_height
+        far = True
+        #distance = 100
+    elif ((alpha-alpha/2) <= Img_height <= (alpha+alpha/2)) and (1000 <= (Img_height * Img_width) <= (beta+beta/2)):
+        distance = (focal_length * 100 * Orig_height_width[0])/Img_height
+    #print(f"Img_height: {Img_height}, Img_area: {Img_height * Img_width}, alpha: {alpha}, beta: {beta}, far: {far}, distance: {distance}")
     return round(distance, 4)
 
 def give_direction(boxes, classes, img):
@@ -114,21 +123,32 @@ def give_direction(boxes, classes, img):
     center_x = x1 + width_obj/2
 
     location = object_location(img.shape[1], center_x)
-    first_distance = distance_one(3.543, obj_height_width[classes][0], height_obj)
+    first_distance = distance_one(3.543, obj_height_width[classes], height_obj, width_obj)
 
     lis = {'object': classes, 'distance': first_distance, 'location': location, 'bbox': [x1, y1, x2, y2], 'movable': False}
     if classes in movable_objects:
         lis['movable'] = True
     texts = []
+    #middle
     if lis['location'] == 'straight':
             if lis['object'] in movable_objects:
-                if lis['distance'] <= 5:
+                if 0.8 <= lis['distance'] <= 5:
                     mytext = "There is a "+lis['object']+" at "+str(round(lis['distance'], 1))+" meters ahead of you."
                     texts.append(mytext)
-            elif lis['distance'] <= 3:
+            elif 0.8 <= lis['distance'] <= 3:
                 mytext = "There is a "+lis['object']+" at "+str(round(lis['distance'], 1))+" meters ahead of you."
                 texts.append(mytext)
+            elif lis['distance'] <0.8:
+                mytext = "There is a " + lis['object'] + " less than a meter ahead of you."
+                texts.append(mytext)
+
+    #sides
     elif lis['object'] in movable_objects:
+        if 5.0 >= lis['distance'] >= 0.8:
             mytext = "There is a "+lis['object']+" at "+str(round(lis['distance'], 1))+" meters to your "+lis['location'] + "."
-            texts.append(mytext)
+        elif lis['distance'] > 5.0:
+            mytext = "There is a " + lis['object'] + " greater than 5 meters to your "+lis['location'] + "."
+        else:
+            mytext = "There is a " + lis['object'] + " less than a meter to your " +lis['location'] + "."
+        texts.append(mytext)
     return texts, lis

@@ -13,14 +13,11 @@ def object_location(img_width, x_center):
 def distance_one(focal_length, Orig_height_width, Img_height, Img_width):
     alpha = Img_height/Orig_height_width[0]
     beta = (Img_height * Img_width) / (Orig_height_width[0] * Orig_height_width[1])
-    far = False
     distance = 0
     if (Img_height < (alpha-alpha/2)) and ((Img_height * Img_width) > (beta+beta/2)):
         distance = 0.5
     elif (Img_height < (alpha-alpha/2)) or (Img_height > (alpha+alpha/2)) and ((Img_height * Img_width) > (beta/3)):
         distance = (focal_length * 100 * Orig_height_width[0])/Img_height
-        far = True
-        #distance = 100
     elif ((alpha-alpha/2) <= Img_height <= (alpha+alpha/2)) and (1000 <= (Img_height * Img_width) <= (beta+beta/2)):
         distance = (focal_length * 100 * Orig_height_width[0])/Img_height
     #print(f"Img_height: {Img_height}, Img_area: {Img_height * Img_width}, alpha: {alpha}, beta: {beta}, far: {far}, distance: {distance}")

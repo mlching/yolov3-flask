@@ -1,0 +1,101 @@
+<View>
+  <Image name="image" value="$image"/>
+  <View><Filter toName="label" minlength="0" name="filter"/><RectangleLabels name="label" toName="image">
+    
+    
+    <Label value="person" background="#FFA39E" category="0" />
+    <Label value="bicycle" background="#D4380D" category="1" />
+    <Label value="car" background="#FFC069" category="2" />
+    <Label value="motorcycle" background="#AD8B00" category="3" />
+    <Label value="airplane" background="#D3F261" category="4" />
+    <Label value="bus" background="#389E0D" category="5" />
+    <Label value="train" background="#5CDBD3" category="6" />
+    <Label value="truck" background="#096DD9" category="7" />
+    <Label value="boat" background="#ADC6FF" category="8" />
+    <Label value="traffic light" background="#9254DE" category="9" />
+    <Label value="fire hydrant" background="#F759AB" category="10" />
+    <Label value="stop sign" background="#FFA39E" category="11" />
+    <Label value="parking meter" background="#D4380D" category="12" />
+    <Label value="bench" background="#FFC069" category="13" />
+    <Label value="bird" background="#AD8B00" category="14" />
+    <Label value="cat" background="#D3F261" category="15" />
+    <Label value="dog" background="#389E0D" category="16" />
+    <Label value="horse" background="#5CDBD3" category="17" />
+    <Label value="sheep" background="#096DD9" category="18" />
+    <Label value="cow" background="#ADC6FF" category="19" />
+    <Label value="elephant" background="#9254DE" category="20" />
+    <Label value="bear" background="#F759AB" category="21" />
+    <Label value="zebra" background="#FFA39E" category="22" />
+    <Label value="giraffe" background="#D4380D" category="23" />
+    <Label value="backpack" background="#FFC069" category="24" />
+    <Label value="umbrella" background="#AD8B00" category="25" />
+    <Label value="handbag" background="#D3F261" category="26" />
+    <Label value="tie" background="#389E0D" category="27" />
+    <Label value="suitcase" background="#5CDBD3" category="28" />
+    <Label value="frisbee" background="#096DD9" category="29" />
+    <Label value="skis" background="#ADC6FF" category="30" />
+    <Label value="snowboard" background="#9254DE" category="31" />
+    <Label value="sports ball" background="#F759AB" category="32" />
+    <Label value="kite" background="#FFA39E" category="33" />
+    <Label value="baseball bat" background="#D4380D" category="34" />
+    <Label value="baseball glove" background="#FFC069" category="35" />
+    <Label value="skateboard" background="#AD8B00" category="36" />
+    <Label value="surfboard" background="#D3F261" category="37" />
+    <Label value="tennis racket" background="#389E0D" category="38" />
+    <Label value="bottle" background="#5CDBD3" category="39" />
+    <Label value="wine glass" background="#096DD9" category="40" />
+    <Label value="cup" background="#ADC6FF" category="41" />
+    <Label value="fork" background="#9254DE" category="42" />
+    <Label value="knife" background="#F759AB" category="43" />
+    <Label value="spoon" background="#FFA39E" category="44" />
+    <Label value="bowl" background="#D4380D" category="45" />
+    <Label value="banana" background="#FFC069" category="46" />
+    <Label value="apple" background="#AD8B00" category="47" />
+    <Label value="sandwich" background="#D3F261" category="48" />
+    <Label value="orange" background="#389E0D" category="49" />
+    <Label value="broccoli" background="#5CDBD3" category="50" />
+    <Label value="carrot" background="#096DD9" category="51" />
+    <Label value="hot dog" background="#ADC6FF" category="52" />
+    <Label value="pizza" background="#9254DE" category="53" />
+    <Label value="donut" background="#F759AB" category="54" />
+    <Label value="cake" background="#FFA39E" category="55" />
+    <Label value="chair" background="#D4380D" category="56" />
+    <Label value="couch" background="#FFC069" category="57" />
+    <Label value="potted plant" background="#AD8B00" category="58" />
+    <Label value="bed" background="#D3F261" category="59" />
+    <Label value="dining table" background="#389E0D" category="60" />
+    <Label value="toilet" background="#5CDBD3" category="61" />
+    <Label value="tv" background="#096DD9" category="62" />
+    <Label value="laptop" background="#ADC6FF" category="63" />
+    <Label value="mouse" background="#9254DE" category="64" />
+    <Label value="remote" background="#F759AB" category="65" />
+    <Label value="keyboard" background="#FFA39E" category="66" />
+    <Label value="cell phone" background="#D4380D" category="67" />
+    <Label value="microwave" background="#FFC069" category="68" />
+    <Label value="oven" background="#AD8B00" category="69" />
+    <Label value="toaster" background="#D3F261" category="70" />
+    <Label value="sink" background="#389E0D" category="71" />
+    <Label value="refrigerator" background="#5CDBD3" category="72" />
+    <Label value="book" background="#096DD9" category="73" />
+    <Label value="clock" background="#ADC6FF" category="74" />
+    <Label value="vase" background="#9254DE" category="75" />
+    <Label value="scissors" background="#F759AB" category="76" />
+    <Label value="teddy bear" background="#FFA39E" category="77" />
+    <Label value="hair drier" background="#D4380D" category="78" />
+    <Label value="toothbrush" background="#FFC069" category="79" />
+    <Label value="minibus" background="#AD8B00" category="80" />
+    <Label value="telephone booth" background="#D3F261" category="81" />
+    <Label value="taxi" background="#389E0D" category="82" />
+    <Label value="handrail" background="#5CDBD3" category="83" />
+    <Label value="ramp access" background="#096DD9" category="84" />
+    <Label value="tactile paving" background="#ADC6FF" category="85" />
+    <Label value="letter box" background="#9254DE" category="86" />
+    <Label value="tram" background="#F759AB" category="87" />
+    <Label value="tram station" background="#FFA39E" category="88" />
+    <Label value="bus stop" background="#D4380D" category="89" />
+    <Label value="escalator" background="#FFC069" category="90" />
+    <Label value="elevator" background="#AD8B00" category="91" />
+    <Label value="crosswalk" background="#FFA39E" category="92" />
+    <Label value="ATM" background="#FFA39E" category="93" />
+    </RectangleLabels></View>
+</View>
